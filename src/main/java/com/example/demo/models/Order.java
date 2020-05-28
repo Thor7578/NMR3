@@ -59,6 +59,10 @@ public class Order {
     }
 
 
+    public double getTotalPrice() {
+        return totalPrice;
+    }
+
     public void setDropOffPrice(double dropOffPrice) {
         this.dropOffPrice = dropOffPrice;
     }
