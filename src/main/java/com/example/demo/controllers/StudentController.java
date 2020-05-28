@@ -77,7 +77,6 @@ public class StudentController {
 
 
 
-
     public void indexRead(Model model) {
         model.addAttribute("students", studentRepository.readAll());
     }
