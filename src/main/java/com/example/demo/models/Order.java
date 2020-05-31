@@ -1,6 +1,5 @@
 package com.example.demo.models;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Order {
@@ -12,6 +11,7 @@ public class Order {
     private double totalPrice;
     private Date startDate;
     private Date endDate;
+    private int totalDays;
     private MaintenanceToDoList mTDL;
 
 
@@ -24,6 +24,7 @@ public class Order {
         this.dropOffLocation = null;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.totalDays = startDate.dateDayDiff(endDate);
         this.mTDL = MaintenanceToDoList.getInstance();
 
     }
@@ -43,9 +44,10 @@ public class Order {
     }
 
     //Drop-offs indicate the final step of an order. When this is finalized an invoice is made and queued at the bookkeeper.
-
-    public void externalDropOffLocation(String cityName, String streetName, String streetNo, int ZIPCode) {
+    //The dropoff price needs to be calculated externally, e. g. through Google maps or the like.
+    public void externalDropOffLocation(String cityName, String streetName, String streetNo, int ZIPCode, double dropOffPrice) {
         this.dropOffLocation = new Location(cityName, streetName, streetNo, ZIPCode);
+        setDropOffPrice(dropOffPrice);
     }
 
     public void internalDropOffLocation(){
@@ -57,11 +59,12 @@ public class Order {
     }
 
     private void makeInvoice(){
-        LocalDate currentDate = LocalDate.now();
         Invoice invoice = new Invoice(this);
 
         BookkeeperToDoList BTDL = BookkeeperToDoList.getInstance();
-        BTDL.addRemindersToSend(invoice);
+        BTDL.addToInvoicesToSend(invoice);
+
+        setDropOffPrice(0);
     }
 
 
@@ -74,7 +77,9 @@ public class Order {
     }
 
     public void calcTotal(){
-
+        for(int i=0; i<motorhomesInOrder.size(); i++){
+            totalPrice += motorhomesInOrder.get(i).getPricePerDay() * totalDays;
+        }
     }
 
 

@@ -27,8 +27,9 @@ public class BookkeeperToDoList {
         remindersToSend.add(invoice);
     }
 
-    public void rmvFirstElementInvoices(){
-        invoicesToSend.remove();
+    public void sendFirstElementInvoices(Date dueDate){
+        Invoice inv = invoicesToSend.pop();
+        inv.sendInvoice(dueDate);
     }
 
     public void rmvFirstElementReminders(){
