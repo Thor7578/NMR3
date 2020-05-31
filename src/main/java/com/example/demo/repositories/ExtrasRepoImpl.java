@@ -16,7 +16,7 @@ public class ExtrasRepoImpl {
         this.conn = DatabaseConnectionManager.getDatabaseConnection();
     }
 
-    public Student read(String extraName) {
+    public Extra read(String extraName) {
         Extra extraToReturn = new Extra();
         try {
             PreparedStatement getSingleStudent = conn.prepareStatement("SELECT * FROM extras WHERE extraName='" + extraName + "'");
