@@ -2,19 +2,19 @@ package com.example.demo.models;
 
 import java.util.LinkedList;
 
-public class BookKeeperToDoList {
-    private static BookKeeperToDoList bookKeeperToDoList = null;
+public class BookkeeperToDoList {
+    private static BookkeeperToDoList bookKeeperToDoList = null;
 
     private LinkedList<Invoice> invoicesToSend;
     private LinkedList<Invoice> remindersToSend;
 
-    private BookKeeperToDoList(){
+    private BookkeeperToDoList(){
 
     }
 
-    public static BookKeeperToDoList getInstance(){
+    public static BookkeeperToDoList getInstance(){
         if(bookKeeperToDoList==null){
-            bookKeeperToDoList = new BookKeeperToDoList();
+            bookKeeperToDoList = new BookkeeperToDoList();
         }
         return bookKeeperToDoList;
     }

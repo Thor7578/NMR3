@@ -1,5 +1,6 @@
 package com.example.demo.models;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Order {
@@ -41,6 +42,8 @@ public class Order {
         extras.setChair(chair);
     }
 
+    //Drop-offs indicate the final step of an order. When this is finalized an invoice is made and queued at the bookkeeper.
+
     public void externalDropOffLocation(String cityName, String streetName, String streetNo, int ZIPCode) {
         this.dropOffLocation = new Location(cityName, streetName, streetNo, ZIPCode);
     }
@@ -54,8 +57,11 @@ public class Order {
     }
 
     private void makeInvoice(){
+        LocalDate currentDate = LocalDate.now();
+        Invoice invoice = new Invoice(this);
 
-
+        BookkeeperToDoList BTDL = BookkeeperToDoList.getInstance();
+        BTDL.addRemindersToSend(invoice);
     }
 
 

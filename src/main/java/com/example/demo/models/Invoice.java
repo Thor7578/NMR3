@@ -8,23 +8,18 @@ public class Invoice {
     private Date dueDate;
 
 
-    public Invoice(Order order, Date dueDate){
+    public Invoice(Order order){
         this.order = order;
         this.total = order.getTotalPrice();
-        this.dueDate = dueDate;
+        this.dueDate = null;
         this.paid = false;
         this.payDate = null;
     }
 
-    public void sendInvoice(){
 
+    public void sendInvoice(Date dueDate){
+        this.dueDate = dueDate;
     }
-
-    public void sendReminder(){
-
-    }
-
-
 
     //Registers an invoice as paid and the paymentdate.
     public void invoicePaid(int day, int month, int year){
