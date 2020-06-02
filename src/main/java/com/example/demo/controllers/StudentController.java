@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.models.Motorhome;
 import com.example.demo.models.Student;
 import com.example.demo.repositories.IStudentRepository;
 import com.example.demo.repositories.StudentRepositoryImpl;
@@ -15,18 +16,36 @@ public class StudentController {
     public StudentController() {
         studentRepository = new StudentRepositoryImpl();
     }
-
+/*
     @GetMapping("/")
     public String homepage(Model model){
         indexRead(model);
         return "homepage";
     }
 
-    @GetMapping("/studentList")
-    public String index(Model model){
+    @GetMapping("/motorhomes")
+    public String motorhomes (Model model){
         indexRead(model);
-        return "index";
+        return "motorhomes";
     }
+
+    @GetMapping("/maintenance")
+    public String maintenance (Model model){
+        indexRead(model);
+        return "maintenance";
+    }
+
+    @GetMapping("/sales")
+    public String sales (Model model){
+        indexRead(model);
+        return "sales";
+    }
+
+    @GetMapping("/dropOff")
+    public String dropOff (Model model){
+        indexRead(model);
+        return "dropOff";
+    } */
 
     @GetMapping("/student")
     //@ResponseBody
@@ -76,8 +95,19 @@ public class StudentController {
     }
 
 
-
     public void indexRead(Model model) {
         model.addAttribute("students", studentRepository.readAll());
     }
 }
+
+
+
+/*
+      Adgang til studentlist (index)
+ @GetMapping("/motorhomes")
+    public String index(Model model){
+        indexRead(model);
+        return "index";
+    }
+
+ */

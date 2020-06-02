@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Add student</title>
+    <title>Add Motorhome</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="/css/styles.css">
 
@@ -17,7 +17,7 @@
 
 </div>
 <div id="formCreate">
-    <h1>Create student</h1>
+    <h1>Add Motorhome</h1>
     <form action="#" th:action="@{/addStudentForm}" th:object="${student}" method="post">
         <p>First name: <input type="text" th:field="*{firstName}" /></p>
         <p>Last name: <input type="text" th:field="*{lastName}" /></p>
@@ -26,5 +26,6 @@
         <p><input id="CreateButton" type="submit" value="Create" /></p>
     </form>
 </div>
+        <a th:href="@{/addStudent}"><button>Add student</button></a>
 </body>
 </html>
