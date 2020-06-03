@@ -19,14 +19,19 @@ public class MotorhomeRepoImpl implements IMotorhomeRepo {
 
     @Override
     public boolean create(Motorhome motorhome) {
+        System.out.println(motorhome.getLicensePlate());
+        System.out.println(motorhome.getPricePerDay());
+        System.out.println(motorhome.getBeds());
+        System.out.println(motorhome.getModel());
         try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Motorhomes" +
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Motorhomes (LicensePlate, Model, Beds, Price, Cleaned, Repaired, MotorhomeStatus)" +
                     " VALUES ('" +
                     motorhome.getLicensePlate() + "','" +
-                    motorhome.getModel() + "','" +
-                    motorhome.getBeds() + "','" +
-                    motorhome.getPricePerDay() + "','" + "');");
-            ps.executeUpdate();
+                    motorhome.getModel() + "'," +
+                    motorhome.getBeds() + "," +
+                    motorhome.getPricePerDay() + "," +
+                    "true, true, 'active');");
+            ps.execute();
             return true;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,19 +39,22 @@ public class MotorhomeRepoImpl implements IMotorhomeRepo {
         return false;
     }
 
-
     @Override
     public Motorhome read(int mID) {
+        System.out.println(mID);
         Motorhome motorhomeToReturn = new Motorhome();
         try {
-            PreparedStatement getSingleMotorhome = conn.prepareStatement("SELECT * FROM Motorhomes WHERE id='" + mID + "'");
+            PreparedStatement getSingleMotorhome = conn.prepareStatement("SELECT * FROM Motorhomes WHERE MotorhomeID='" + mID + "';");
             ResultSet rs = getSingleMotorhome.executeQuery();
             while(rs.next()){
-                motorhomeToReturn = new Motorhome();
-                motorhomeToReturn.setModel(rs.getString(1));
-                motorhomeToReturn.setModel(rs.getString(2));
+                motorhomeToReturn.setID(rs.getInt(1));
+                motorhomeToReturn.setLicensePlate(rs.getString(2));
                 motorhomeToReturn.setModel(rs.getString(3));
-                motorhomeToReturn.setModel(rs.getString(4));
+                motorhomeToReturn.setBeds(rs.getInt(4));
+                motorhomeToReturn.setPricePerDay(rs.getDouble(5));
+                motorhomeToReturn.setCleaned(rs.getBoolean(6));
+                motorhomeToReturn.setRepaired(rs.getBoolean(7));
+                motorhomeToReturn.setActive(rs.getBoolean(8));
             }
         }
         catch(SQLException s){
@@ -60,15 +68,19 @@ public class MotorhomeRepoImpl implements IMotorhomeRepo {
     public List<Motorhome> readAll() {
         List<Motorhome> allMotorhomes = new ArrayList<>();
         try {
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motorhomes");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Motorhomes;");
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
-                Motorhome tempMotorhome = new Motorhome();
-                tempMotorhome.setID(rs.getInt(1));
-                tempMotorhome.setLicensePlate(rs.getString(2));
-                tempMotorhome.setModel(rs.getString(3));
-                tempMotorhome.setBeds(rs.getInt(4));
-                tempMotorhome.setPrice((int) rs.getDouble(5));
+                Motorhome motorhomeToReturn = new Motorhome();
+                motorhomeToReturn.setID(rs.getInt(1));
+                motorhomeToReturn.setLicensePlate(rs.getString(2));
+                motorhomeToReturn.setModel(rs.getString(3));
+                motorhomeToReturn.setBeds(rs.getInt(4));
+                motorhomeToReturn.setPricePerDay(rs.getDouble(5));
+                motorhomeToReturn.setCleaned(rs.getBoolean(6));
+                motorhomeToReturn.setRepaired(rs.getBoolean(7));
+                motorhomeToReturn.setActive(rs.getBoolean(8));
+                allMotorhomes.add(motorhomeToReturn);
             }
 
         } catch (SQLException e) {
@@ -79,6 +91,22 @@ public class MotorhomeRepoImpl implements IMotorhomeRepo {
 
     @Override
     public boolean update(Motorhome motorhome) {
+        try{
+            PreparedStatement ps = conn.prepareStatement("UPDATE Motorhomes SET " +
+                    " LicensePlate = '"+ motorhome.getLicensePlate() + "'," +
+                    " Model = '" + motorhome.getModel() +"'," +
+                    " Beds = '" + motorhome.getBeds() +"'," +
+                    " Price = '" + motorhome.getPricePerDay() + "'," +
+                    " Cleaned = '" + sqlReadBoolean(motorhome.getCleaned()) + "'," +
+                    " Repaired = '" + sqlReadBoolean(motorhome.getRepaired()) + "'," +
+                    " MotorhomeActive = '" + sqlReadBoolean(motorhome.getActive()) +"'" +
+                    " WHERE MotorhomeID = '"+ motorhome.getID() + "';");
+
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -92,5 +120,14 @@ public class MotorhomeRepoImpl implements IMotorhomeRepo {
             e.printStackTrace();
         }
         return false;
+    }
+
+
+    public int sqlReadBoolean(boolean bool){
+        if(!bool){
+            return 0;
+        } else {
+            return 1;
+        }
     }
 }

@@ -53,6 +53,10 @@
     font-weight: bold;
 }
 
+#addMotoHead{
+    width: 100%;
+}
+
 
 a{
     color: white;

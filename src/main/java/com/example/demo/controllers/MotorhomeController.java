@@ -1,10 +1,7 @@
 package com.example.demo.controllers;
 import com.example.demo.models.Motorhome;
-import com.example.demo.models.Student;
 import com.example.demo.repositories.IMotorhomeRepo;
-import com.example.demo.repositories.IStudentRepository;
 import com.example.demo.repositories.MotorhomeRepoImpl;
-import com.example.demo.repositories.StudentRepositoryImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +25,37 @@ public class MotorhomeController {
         indexRead(model);
         return "homepage";
     }
+
+    @GetMapping("/deleteMotorhome")
+    public String deleteMotorhome(@RequestParam int ID, Model model){
+
+        motorhomeRepository.delete(ID);
+        indexRead(model);
+        return "motorhomes";
+    }
+
+
+    @GetMapping("/motorhomeDetails")
+    public String motorhomeDetails(@RequestParam int ID, Model model){
+        Motorhome motorhome = motorhomeRepository.read(ID);
+        model.addAttribute("motorhome", motorhome);
+        return "motorhomeID";
+    }
+
+    @PostMapping("/motorhomeUpdate")
+    public String motorhomeUpdate(@ModelAttribute Motorhome motorhome, Model model){
+        indexRead(model);
+        Motorhome mh = (Motorhome) model.getAttribute("motorhome");
+
+        System.out.println(motorhome.getModel());
+        System.out.println(mh.getID());
+        System.out.println(mh.getModel());
+
+
+        motorhomeRepository.update(motorhome);
+        return "homepage";
+    }
+
 
     @GetMapping("/motorhomes")
     public String motorhomes (Model model){         // Access to motorhomes subsection

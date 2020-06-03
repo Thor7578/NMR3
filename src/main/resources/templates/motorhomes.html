@@ -31,20 +31,20 @@
             <th>Beds</th>
             <th>Price</th>
             <th>License Plate</th>
+            <th colspan="2"><a th:href="@{/addMotorhome}"><button id="addMotoHead" >Add motorhome</button></a></th>
         </tr>
         <tr th:each="motorhome : ${motorhomes}">
             <td th:text="${motorhome.getID()}"></td>
             <td th:text="${motorhome.getModel()}"></td>
             <td th:text="${motorhome.getBeds()}"></td>
             <td th:text="${motorhome.getPricePerDay()}"></td>
-            <td th:text="${motorhome.getLicensePlate()()}"></td>
-            <td><a th:href="@{/student(cpr=${student.cpr})}"><button>Details</button></a></td>
-            <td><a th:href="@{/motorhomeDetails(ID=${motorhome.ID})}"><button>Details</button></a></td>
-            <td><a th:href="@{/deleteStudent(cpr=${student.cpr})}"><button>Delete</button></a>
+            <td th:text="${motorhome.getLicensePlate()}"></td>
+            <td><a th:href="@{/motorhomeDetails(ID=${motorhome.getID()})}"><button>Details</button></a></td>
+            <td><a th:href="@{/deleteMotorhome(ID=${motorhome.getID()})}"><button>Delete</button></a>
         </tr>
 
 
-        <a th:href="@{/addMotorhome}"><button>Add motorhome</button></a>
+
     </table>
 </div>
 </body>

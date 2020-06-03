@@ -5,10 +5,10 @@ public class Motorhome {
     private String model;
     private int ID;
     private int beds;
-    private int pricePerDay;
+    private double pricePerDay;
     private boolean cleaned;
     private boolean repaired;
-    private Status status;
+    private boolean active;
 
     public Motorhome(String licensePlate, String model, int beds, int pricePerDay, int ID, boolean cleaned, boolean repaired, Status status){
         this.licensePlate = licensePlate;
@@ -17,7 +17,7 @@ public class Motorhome {
         this.pricePerDay = pricePerDay;
         this.cleaned = cleaned;
         this.repaired = repaired;
-        this.status = Status.ACTIVE;
+        this.active = true;
         this.ID = ID;
     }
 
@@ -37,16 +37,12 @@ public class Motorhome {
         this.model = model;
     }
 
-    public void getModel(String model) {
-        this.model = model;
+    public String getModel() {
+        return model;
     }
 
     public String getLicensePlate() {
         return licensePlate;
-    }
-
-    public String getModel() {
-        return model;
     }
 
     public int getID() {
@@ -61,11 +57,7 @@ public class Motorhome {
         this.beds = beds;
     }
 
-    public void setPricePerDay(int pricePerDay) {
-        this.pricePerDay = pricePerDay;
-    }
-
-    public void setPrice(int pricePerDay) {
+    public void setPricePerDay(double pricePerDay) {
         this.pricePerDay = pricePerDay;
     }
 
@@ -77,12 +69,25 @@ public class Motorhome {
         this.repaired = repaired;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public double getPricePerDay() {
+        return pricePerDay;
     }
 
-    public int getPricePerDay() {
-        return pricePerDay;
+    public boolean getCleaned() {
+        return cleaned;
+    }
+
+    public boolean getRepaired() {
+        return repaired;
+    }
+
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean getActive() {
+        return active;
     }
 
 }
