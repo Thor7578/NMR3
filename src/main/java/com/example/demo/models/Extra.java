@@ -1,12 +1,14 @@
 package com.example.demo.models;
 
 public class Extra {
+    private int extraID;
     private String extraName;
     private double extraPrice;
 
-    public Extra(String extraName, double extraPrice){
+    public Extra(String extraName, double extraPrice, int extraID){
         this.extraName = extraName;
         this.extraPrice = extraPrice;
+        this.extraID = extraID;
     }
 
     public Extra(){}
@@ -25,5 +27,13 @@ public class Extra {
 
     public void setExtraPrice(double extraPrice) {
         this.extraPrice = extraPrice;
+    }
+
+    public int getExtraID() {
+        return extraID;
+    }
+
+    public void setExtraID(int extraID) {
+        this.extraID = extraID;
     }
 }

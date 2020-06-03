@@ -41,7 +41,6 @@ public class MotorhomeRepoImpl implements IMotorhomeRepo {
 
     @Override
     public Motorhome read(int mID) {
-        System.out.println(mID);
         Motorhome motorhomeToReturn = new Motorhome();
         try {
             PreparedStatement getSingleMotorhome = conn.prepareStatement("SELECT * FROM Motorhomes WHERE MotorhomeID='" + mID + "';");

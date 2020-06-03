@@ -84,11 +84,6 @@ public class MotorhomeController {
         return "maintenance";
     }
 
-    @GetMapping("/sales")                           // Access to sales subsection
-    public String sales (Model model){
-        indexRead(model);
-        return "sales";
-    }
 
     @GetMapping("/dropOff")                         // Access to drop off subsection
     public String dropOff (Model model){

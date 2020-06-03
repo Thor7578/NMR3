@@ -15,6 +15,8 @@ public class Date {
 
     }
 
+    public Date(){};
+
     public int getYear() {
         return year;
     }
@@ -28,7 +30,9 @@ public class Date {
     }
 
     public void setMonth(int month) {
-        this.month = month;
+        if(checkIfValid(1,month,2000)){
+            this.month = month;
+        }
     }
 
     public int getDay() {
@@ -36,7 +40,9 @@ public class Date {
     }
 
     public void setDay(int day) {
-        this.day = day;
+        if(checkIfValid(day, 1, 2000)){
+            this.day = day;
+        }
     }
 
     public boolean checkIfValid(int day, int month, int year){
