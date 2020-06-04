@@ -19,6 +19,15 @@ public class OrderRepoImpl implements IOrderRepo {
 
     @Override
     public boolean create(Order order) {
+        try{
+            System.out.println("hello");
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Orders(Seasons, CustomerCPR, Days, Ended) " +
+                    "VALUES ("+order.getSeason().getSeasonID()+",'"+order.getCustomer().getCPR()+"'," + order.getTotalDays() + ",false)");
+           ps.execute();
+           return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return false;
     }
 
@@ -80,6 +89,7 @@ public class OrderRepoImpl implements IOrderRepo {
                 extra.setExtraID(EXOset.getInt(1));
                 extra.setExtraName(EXOset.getString(2));
                 extra.setExtraPrice(EXOset.getDouble(3));
+                EXList.add(extra);
             }
 
             while(datesSet.next()){

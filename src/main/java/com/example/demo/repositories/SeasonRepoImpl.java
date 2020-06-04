@@ -39,21 +39,27 @@ public class SeasonRepoImpl implements ISeasonsRepo {
             ResultSet rs = ps.executeQuery();
 
             ResultSet dates = endDateDay.executeQuery();
+            dates.next();
             endDate.setDay(dates.getInt(1));
 
             dates = endDateMonth.executeQuery();
+            dates.next();
             endDate.setMonth(dates.getInt(1));
 
             dates = endDateYear.executeQuery();
+            dates.next();
             endDate.setYear(dates.getInt(1));
 
             dates = startDateDay.executeQuery();
+            dates.next();
             startDate.setDay(dates.getInt(1));
 
             dates = startDateMonth.executeQuery();
+            dates.next();
             startDate.setMonth(dates.getInt(1));
 
             dates = startDateYear.executeQuery();
+            dates.next();
             startDate.setYear(dates.getInt(1));
 
             seasonToReturn.setSeasonEndDate(endDate);

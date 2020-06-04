@@ -4,17 +4,15 @@ import com.example.demo.models.Extra;
 
 import java.util.List;
 
-public interface ExtrasRepo {
-    public interface IStudentRepository {
+public interface IExtrasRepo {
         // CRUD operations
         public boolean create(Extra extra);
 
-        public Extra read(String extraName);
+        public Extra read(int extraID);
 
         public List<Extra> readAll();
 
         public boolean update(Extra extra);
 
         public boolean delete(String extraName);
-    }
 }

@@ -48,13 +48,6 @@ public class MotorhomeController {
 
     @PostMapping("/motorhomeUpdate")
     public String motorhomeUpdate(@ModelAttribute Motorhome motorhome, Model model){
-        indexRead(model);
-        Motorhome mh = (Motorhome) model.getAttribute("motorhome");
-
-        System.out.println(motorhome.getModel());
-        System.out.println(mh.getID());
-        System.out.println(mh.getModel());
-
 
         motorhomeRepository.update(motorhome);
         return "homepage";
@@ -86,13 +79,6 @@ public class MotorhomeController {
     public String maintenance (Model model){
         indexRead(model);
         return "maintenance";
-    }
-
-
-    @GetMapping("/dropOff")                         // Access to drop off subsection
-    public String dropOff (Model model){
-        indexRead(model);
-        return "dropOff";
     }
 
 

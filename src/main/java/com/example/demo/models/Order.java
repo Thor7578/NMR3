@@ -145,4 +145,12 @@ public class Order {
     public void setExtrasList(ArrayList<Extra> extrasList) {
         this.extrasList = extrasList;
     }
+
+    public ArrayList<Motorhome> getMotorhomesInOrder(){
+        return this.motorhomesInOrder;
+    }
+
+    public int getTotalDays(){
+        return this.totalDays;
+    }
 }

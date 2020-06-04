@@ -58,4 +58,8 @@ public class Season {
         return seasonEndDate;
     }
 
+    @Override
+    public String toString() {
+        return seasonName;
+    }
 }
