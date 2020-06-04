@@ -153,4 +153,12 @@ public class Order {
     public int getTotalDays(){
         return this.totalDays;
     }
+
+    public boolean isEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
+    }
 }

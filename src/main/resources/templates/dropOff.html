@@ -34,7 +34,7 @@
             <th>Total price</th>
         </tr>
         <tr th:each="order : ${activeOrders}">
-            <td th:text="${order.getOrderID()}"></td>
+            <td th:text="${order.customer}"></td>
             <td th:text="${order.getCustomer()}"></td>
             <td th:text="${order.getDropOffLocation()}"></td>
             <td th:text="${order.getStartDate()}"></td>

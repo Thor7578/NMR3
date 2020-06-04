@@ -103,10 +103,26 @@ public class OrderController {
     }
 
     @GetMapping("/dropOff")
-    public String dropOffs(Model model){
+    public String dropOff(Model model){
         indexRead(model);
         model.addAttribute("activeOrders", orderRepository.readActive());
         return "dropOff";
+    }
+
+    @GetMapping("/dropOffDetails")
+    public String dropOffDetails(@RequestParam int ID, Model model){
+        Order order = orderRepository.read(ID);
+        System.out.println(order.getDropOffLocation().getLocationID());
+        System.out.println(order.getDropOffLocation().getLocationID());
+        model.addAttribute("order", order);
+        return "dropOffDetails";
+    }
+
+    @PostMapping("/dropOffForm")
+    public String dropOffForm(@ModelAttribute Order order, Model model){
+        System.out.println(order.getDropOffLocation().getLocationID());
+        orderRepository.updateDropOff(order);
+        return "homepage";
     }
 
     public void indexRead(Model model) {

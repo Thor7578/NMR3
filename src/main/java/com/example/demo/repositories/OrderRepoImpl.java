@@ -102,6 +102,7 @@ public class OrderRepoImpl implements IOrderRepo {
             }
 
             while(rs.next()){
+                System.out.println(rs.getString(4));
                 orderToReturn.setOrderID(rs.getInt(1));
                 customer.setCPR(rs.getString(2));
                 customer.setName(rs.getString(3));
@@ -154,6 +155,7 @@ public class OrderRepoImpl implements IOrderRepo {
             e.printStackTrace();
         }
 
+        System.out.println(activeOrders.get(0).getCustomer().getCPR());
         return activeOrders;
     }
 
@@ -182,6 +184,26 @@ public class OrderRepoImpl implements IOrderRepo {
 
     @Override
     public boolean delete(int mID) {
+        return false;
+    }
+
+    @Override
+    public boolean updateDropOff(Order order){
+        try{
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Locations(CityName, StreetName, StreetNo, ZIPCode) " +
+                    "VALUES('"+order.getDropOffLocation().getCityName()+"','"+order.getDropOffLocation().getStreetName()+"','"+order.getDropOffLocation().getStreetNo()+"',"+order.getDropOffLocation().getZIPCode()+" );");
+            ps.execute();
+
+            System.out.println(order.getDropOffLocation().getLocationID());
+            PreparedStatement ps2 = conn.prepareStatement("UPDATE DropOffs SET " +
+                                                            "DropOffLocation="+order.getDropOffLocation().getLocationID()+", DropOffPrice="+order.getDropOffPrice()+" WHERE OrderID="+order.getOrderID()+";");
+            ps2.execute();
+            PreparedStatement ps3 = conn.prepareStatement("UPDATE Orders SET Ended=true WHERE OrderID="+order.getOrderID()+";");
+            ps3.execute();
+            return true;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
         return false;
     }
 }

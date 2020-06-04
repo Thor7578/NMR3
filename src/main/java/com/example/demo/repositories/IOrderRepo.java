@@ -19,4 +19,6 @@ public interface IOrderRepo {
     public boolean update(Order order);
 
     public boolean delete(int mID);
+
+    public boolean updateDropOff(Order order);
 }
