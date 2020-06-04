@@ -23,10 +23,8 @@ public class OrderRepoImpl implements IOrderRepo {
     }
 
     @Override
-    public Order read(int oID, Season season) {
+    public Order read(int oID) {
         Order orderToReturn = new Order();
-
-        orderToReturn.setSeason(season);
 
         Customer customer = new Customer();
         orderToReturn.setCustomer(customer);
@@ -46,26 +44,29 @@ public class OrderRepoImpl implements IOrderRepo {
         orderToReturn.setEndDate(endDate);
         orderToReturn.setStartDate(startDate);
 
+        Season season = new Season();
+        orderToReturn.setSeason(season);
+
         try {
             PreparedStatement ps = conn.prepareStatement("SELECT Orders.OrderID, Orders.CustomerCPR, c.CustomerName, c.DriversLicenseID, c.CreditCardNo, Orders.Seasons, do.DropOffLocation, l.CityName, l.StreetName, l.StreetNo, l.ZIPCode\n" +
                                                             "FROM Orders\n" +
                                                             "INNER JOIN Seasons s ON Orders.Seasons = s.SeasonID\n" +
                                                             "INNER JOIN DropOffs do ON Orders.OrderID = do.OrderID\n" +
                                                             "INNER JOIN Customers c ON Orders.CustomerCPR = c.CustomerCPR " +
-                                                            "INNER JOIN Locations l ON do.DropOffLocation = l.LocationID" +
-                                                            "WHERE orderID='" + oID +"';");
+                                                            "INNER JOIN Locations l ON do.DropOffLocation = l.LocationID " +
+                                                            "WHERE Orders.orderID=" + oID +";");
             ResultSet rs = ps.executeQuery();
 
-            PreparedStatement MHinOrder = conn.prepareStatement("SELECT MotorhomeID FROM Motorhome_Orders WHERE OrderID='" + oID + "';");
+            PreparedStatement MHinOrder = conn.prepareStatement("SELECT MotorhomeID FROM Motorhome_Orders WHERE OrderID=" + oID + ";");
             ResultSet MHOset = MHinOrder.executeQuery();
 
             PreparedStatement EXinOrder = conn.prepareStatement("SELECT Extras_orders.ExtraID, e.ExtraName, e.ExtraPrice\n" +
                                                                     "FROM Extras_Orders\n" +
                                                                     "INNER JOIN Extras e ON extras_orders.ExtraID = e.ExtraID\n" +
-                                                                    "WHERE OrderID='" + oID + "';");
+                                                                    "WHERE OrderID=" + oID + ";");
             ResultSet EXOset = EXinOrder.executeQuery();
 
-            PreparedStatement dates = conn.prepareStatement("SELECT DAY(StartDate), MONTH(StartDate), YEAR(StartDate), DAY(EndDate), MONTH(EndDate), YEAR(EndDate) FROM Orders WHERE OrderID='" +oID + "';");
+            PreparedStatement dates = conn.prepareStatement("SELECT DAY(StartDate), MONTH(StartDate), YEAR(StartDate), DAY(EndDate), MONTH(EndDate), YEAR(EndDate) FROM Orders WHERE OrderID=" +oID + ";");
             ResultSet datesSet = dates.executeQuery();
 
             while(MHOset.next()){
@@ -96,6 +97,7 @@ public class OrderRepoImpl implements IOrderRepo {
                 customer.setName(rs.getString(3));
                 customer.setDriverLicensID(rs.getString(4));
                 customer.setCreditCardNo(rs.getString(5));
+                season.setSeasonID(rs.getInt(6));
                 location.setLocationID(rs.getInt(7));
                 location.setCityName(rs.getString(8));
                 location.setStreetName(rs.getString(9));
@@ -111,7 +113,56 @@ public class OrderRepoImpl implements IOrderRepo {
 
     @Override
     public List<Order> readAll() {
-        return null;
+        List<Order> allOrders = new ArrayList<Order>();
+
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT OrderID FROM Orders");
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                allOrders.add(read(rs.getInt(1)));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return allOrders;
+    }
+
+    public List<Order> readActive(){
+        List<Order> activeOrders = new ArrayList<Order>();
+
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT OrderID FROM Orders WHERE Ended=0");
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                activeOrders.add(read(rs.getInt(1)));
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return activeOrders;
+    }
+
+    public List<Order> readEnded(){
+        List<Order> endedOrders = new ArrayList<Order>();
+
+        try{
+            PreparedStatement ps = conn.prepareStatement("SELECT OrderID FROM Orders WHERE Ended=1");
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next()){
+                endedOrders.add(read(rs.getInt(1)));
+            }
+
+        } catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return endedOrders;
     }
 
     @Override

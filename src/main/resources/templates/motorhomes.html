@@ -31,6 +31,7 @@
             <th>Beds</th>
             <th>Price</th>
             <th>License Plate</th>
+            <th>Active</th>
             <th colspan="2"><a th:href="@{/addMotorhome}"><button id="addMotoHead" >Add motorhome</button></a></th>
         </tr>
         <tr th:each="motorhome : ${motorhomes}">
@@ -39,6 +40,7 @@
             <td th:text="${motorhome.getBeds()}"></td>
             <td th:text="${motorhome.getPricePerDay()}"></td>
             <td th:text="${motorhome.getLicensePlate()}"></td>
+            <td th:text="${motorhome.getActive()}"></td>
             <td><a th:href="@{/motorhomeDetails(ID=${motorhome.getID()})}"><button>Details</button></a></td>
             <td><a th:href="@{/deleteMotorhome(ID=${motorhome.getID()})}"><button>Delete</button></a>
         </tr>

@@ -171,9 +171,10 @@ public class Date {
     }
 
 
-
-
-
+    @Override
+    public String toString() {
+        return ""+day+"/"+month+"/"+year;
+    }
 }
 
 

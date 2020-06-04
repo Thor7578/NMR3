@@ -29,7 +29,11 @@ public class MotorhomeController {
     @GetMapping("/deleteMotorhome")
     public String deleteMotorhome(@RequestParam int ID, Model model){
 
-        motorhomeRepository.delete(ID);
+        Motorhome motorhome = motorhomeRepository.read(ID);
+        motorhome.setActive(false);
+
+        motorhomeRepository.update(motorhome);
+
         indexRead(model);
         return "motorhomes";
     }

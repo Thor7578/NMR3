@@ -56,4 +56,9 @@ public class Location {
     public void setLocationID(int locationID) {
         this.locationID = locationID;
     }
+
+    @Override
+    public String toString() {
+        return cityName+ ", " + streetName + ", " + streetNo;
+    }
 }

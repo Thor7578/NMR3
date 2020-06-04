@@ -29,13 +29,13 @@ public class SeasonRepoImpl implements ISeasonsRepo {
 
         //The benefits and the drawbacks of making your own Date-type.
         try{
-            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Seasons WHERE SeasonID='"+sID+"';");
-            PreparedStatement endDateDay = conn.prepareStatement("SELECT DAY(SeasonEndDate) FROM Seasons WHERE SeasonID='"+sID+"';");
-            PreparedStatement endDateMonth = conn.prepareStatement("SELECT MONTH(SeasonEndDate) FROM Seasons WHERE SeasonID='"+sID+"';");
-            PreparedStatement endDateYear = conn.prepareStatement("SELECT YEAR(SeasonEndDate) FROM Seasons WHERE SeasonID='"+sID+"';");
-            PreparedStatement startDateDay = conn.prepareStatement("SELECT DAY(SeasonStartDate) FROM Seasons WHERE SeasonID='"+sID+"';");
-            PreparedStatement startDateMonth = conn.prepareStatement("SELECT MONTH(SeasonStartDate) FROM Seasons WHERE SeasonID='"+sID+"';");
-            PreparedStatement startDateYear = conn.prepareStatement("SELECT YEAR(SeasonStartDate) FROM Seasons WHERE SeasonID='"+sID+"';");
+            PreparedStatement ps = conn.prepareStatement("SELECT * FROM Seasons WHERE SeasonID="+sID+";");
+            PreparedStatement endDateDay = conn.prepareStatement("SELECT DAY(SeasonEndDate) FROM Seasons WHERE SeasonID="+sID+";");
+            PreparedStatement endDateMonth = conn.prepareStatement("SELECT MONTH(SeasonEndDate) FROM Seasons WHERE SeasonID="+sID+";");
+            PreparedStatement endDateYear = conn.prepareStatement("SELECT YEAR(SeasonEndDate) FROM Seasons WHERE SeasonID="+sID+";");
+            PreparedStatement startDateDay = conn.prepareStatement("SELECT DAY(SeasonStartDate) FROM Seasons WHERE SeasonID="+sID+";");
+            PreparedStatement startDateMonth = conn.prepareStatement("SELECT MONTH(SeasonStartDate) FROM Seasons WHERE SeasonID="+sID+";");
+            PreparedStatement startDateYear = conn.prepareStatement("SELECT YEAR(SeasonStartDate) FROM Seasons WHERE SeasonID="+sID+";");
             ResultSet rs = ps.executeQuery();
 
             ResultSet dates = endDateDay.executeQuery();

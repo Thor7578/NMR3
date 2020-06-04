@@ -8,9 +8,13 @@ import java.util.List;
 public interface IOrderRepo {
     public boolean create(Order order);
 
-    public Order read (int mID, Season season);
+    public Order read (int mID);
 
     public List<Order> readAll();
+
+    public List<Order> readActive();
+
+    public List<Order> readEnded();
 
     public boolean update(Order order);
 

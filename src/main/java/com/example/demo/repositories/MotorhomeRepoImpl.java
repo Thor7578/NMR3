@@ -24,13 +24,13 @@ public class MotorhomeRepoImpl implements IMotorhomeRepo {
         System.out.println(motorhome.getBeds());
         System.out.println(motorhome.getModel());
         try {
-            PreparedStatement ps = conn.prepareStatement("INSERT INTO Motorhomes (LicensePlate, Model, Beds, Price, Cleaned, Repaired, MotorhomeStatus)" +
+            PreparedStatement ps = conn.prepareStatement("INSERT INTO Motorhomes (LicensePlate, Model, Beds, Price, Cleaned, Repaired, MotorhomeActive)" +
                     " VALUES ('" +
                     motorhome.getLicensePlate() + "','" +
                     motorhome.getModel() + "'," +
                     motorhome.getBeds() + "," +
                     motorhome.getPricePerDay() + "," +
-                    "true, true, 'active');");
+                    "true, true, true);");
             ps.execute();
             return true;
         } catch (SQLException e) {

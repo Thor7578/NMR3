@@ -46,4 +46,9 @@ public class Customer {
     public void setCreditCardNo(String creditCardNo) {
         this.creditCardNo = creditCardNo;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

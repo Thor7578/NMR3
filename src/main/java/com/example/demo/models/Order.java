@@ -6,7 +6,7 @@ public class Order {
     private int orderID;
     private Customer customer;
     private Season season;
-    private ArrayList<Motorhome>motorhomesInOrder;
+    private ArrayList<Motorhome> motorhomesInOrder;
     private ArrayList<Extra> extrasList;
     private Location dropOffLocation;
     private double dropOffPrice;
@@ -14,9 +14,10 @@ public class Order {
     private Date startDate;
     private Date endDate;
     private int totalDays;
+    private boolean ended;
 
 
-    public Order(Season season, Customer customer, Date startDate, Date endDate, int orderID, ArrayList<Extra> extrasList) {
+    public Order(Season season, Customer customer, Date startDate, Date endDate, int orderID, ArrayList<Extra> extrasList, boolean ended) {
         this.season = season;
         this.customer=customer;
         this.motorhomesInOrder = new ArrayList<Motorhome>();
@@ -28,6 +29,7 @@ public class Order {
         this.endDate = endDate;
         this.totalDays = startDate.dateDayDiff(endDate);
         this.orderID = orderID;
+        this.ended = ended;
     }
 
     public Order(){}
